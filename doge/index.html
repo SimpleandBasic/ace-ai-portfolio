@@ -7,65 +7,9 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="DOGE Board" />
-  <meta name="description" content="ACE OS DOGE Buy Board with personal purchase tracking" />
+  <meta name="description" content="ACE OS DOGE Buy Board with secure Supabase purchase backup" />
   <title>DOGE Buy Board</title>
-  <style>
-    :root{color-scheme:dark;font-family:Inter,ui-rounded,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0b100d;color:#f5f0e7}
-    *{box-sizing:border-box}
-    body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% -10%,rgba(137,162,141,.23),transparent 38%),linear-gradient(180deg,#111713,#0b100d)}
-    button,input{font:inherit}
-    button{color:inherit}
-    .page{width:min(100%,560px);min-height:100vh;margin:auto;padding:calc(24px + env(safe-area-inset-top)) 18px calc(34px + env(safe-area-inset-bottom))}
-    header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px}
-    header h2{margin:3px 0 0;font:600 1.35rem Georgia,serif}
-    .eyebrow{margin:0;color:#d0b477;font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
-    .coin{display:grid;place-items:center;width:48px;height:48px;border:1px solid rgba(208,180,119,.32);border-radius:17px;color:#e5c985;background:rgba(208,180,119,.08);font:800 1.65rem Georgia,serif}
-    .signal{overflow:hidden;position:relative;border:1px solid rgba(255,255,255,.11);border-radius:30px;padding:27px 22px 25px;text-align:center;box-shadow:0 28px 80px rgba(0,0,0,.34)}
-    .signal.buy{background:radial-gradient(circle at 50% 0,rgba(169,214,175,.18),transparent 46%),linear-gradient(145deg,#174f31,#0e2d1d)}
-    .signal.wait,.signal.loading{background:radial-gradient(circle at 50% 0,rgba(229,201,133,.16),transparent 46%),linear-gradient(145deg,#4d3a18,#251d0f)}
-    .badge{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(255,255,255,.1);border-radius:999px;padding:7px 11px;color:#dde5df;background:rgba(255,255,255,.07);font-size:.74rem;font-weight:700}
-    .badge i{width:7px;height:7px;border-radius:50%;background:#a9d6af;box-shadow:0 0 0 4px rgba(169,214,175,.12)}
-    .prompt{margin:18px 0 3px;color:rgba(245,240,231,.72);font-size:.8rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
-    h1{margin:6px 0 12px;font-size:clamp(3rem,15vw,5.3rem);line-height:.94;letter-spacing:-.065em}
-    .price{margin:0;font-size:1.45rem;font-weight:850}
-    .change{margin:4px 0 0;font-size:.95rem;font-weight:750}
-    .positive{color:#b9efc8}.negative{color:#ffd59b}
-    .reason{max-width:405px;margin:18px auto 0;color:#eee6d8;line-height:1.5}
-    .refresh,.buy-button,.custom-button{width:100%;border:0;border-radius:18px;padding:16px;font-size:1rem;font-weight:850;cursor:pointer;box-shadow:0 10px 35px rgba(0,0,0,.18)}
-    .refresh{margin:15px 0;color:#172019;background:#f3eee3}
-    .buy-button{color:#102017;background:#a9d6af}
-    .custom-button{color:#f5f0e7;background:#202b24;border:1px solid rgba(255,255,255,.1)}
-    button:active{transform:scale(.99)}
-    button:disabled{opacity:.58;cursor:not-allowed}
-    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
-    .card,.panel{min-width:0;border:1px solid rgba(255,255,255,.09);border-radius:21px;padding:16px;background:rgba(255,255,255,.05)}
-    .card>span,.stat span{display:block;margin-bottom:7px;color:#aebbb2;font-size:.74rem}
-    .card strong,.stat strong{display:block;overflow:hidden;font-size:clamp(.96rem,4.5vw,1.16rem);text-overflow:ellipsis;white-space:nowrap}
-    .wide{grid-column:1/-1}
-    .checks{display:grid;gap:10px;margin:11px 0 0;padding:0;list-style:none}
-    .checks li{display:flex;align-items:center;gap:10px;font-size:.9rem}
-    .checks b{width:24px;font-size:1.1rem}.passed{color:#b9efc8}.notpassed{color:#c5c7c5}
-    .section-title{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:27px 2px 12px}
-    .section-title h3{margin:0;font:600 1.4rem Georgia,serif}
-    .section-title p{margin:0;color:#94a097;font-size:.75rem}
-    .portfolio{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-    .stat{border:1px solid rgba(255,255,255,.09);border-radius:19px;padding:15px;background:rgba(255,255,255,.045)}
-    .stat.wide{grid-column:1/-1}
-    .gain{color:#b9efc8}.loss{color:#ffd59b}
-    .quick-buy{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:11px}
-    .notice{margin:12px 0 0;padding:12px 14px;border:1px solid rgba(208,180,119,.22);border-radius:16px;background:rgba(208,180,119,.08);color:#e7dcc3;font-size:.82rem;line-height:1.45}
-    .custom-form{display:grid;grid-template-columns:1fr auto;gap:9px;margin-top:10px}
-    .custom-form input{min-width:0;border:1px solid rgba(255,255,255,.11);border-radius:15px;padding:13px 14px;color:#f5f0e7;background:#111713;outline:none}
-    .custom-form input:focus{border-color:rgba(208,180,119,.55)}
-    .custom-form button{border:0;border-radius:15px;padding:0 17px;background:#d0b477;color:#17150e;font-weight:850;cursor:pointer}
-    .history{display:grid;gap:9px}
-    .purchase{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:14px;background:rgba(255,255,255,.04)}
-    .purchase h4{margin:0 0 4px;font-size:.94rem}.purchase p{margin:0;color:#aebbb2;font-size:.76rem;line-height:1.4}
-    .purchase-side{text-align:right}.purchase-side strong{display:block}.delete{margin-top:5px;border:0;background:transparent;color:#f19a91;font-size:.72rem;cursor:pointer;padding:3px}
-    .empty{padding:20px;border:1px dashed rgba(255,255,255,.12);border-radius:18px;color:#94a097;text-align:center;font-size:.84rem}
-    footer{margin-top:22px;color:#94a097;text-align:center;font-size:.76rem;line-height:1.45}.hidden{display:none!important}
-    @media(max-width:390px){.page{padding-left:14px;padding-right:14px}.signal{padding-left:16px;padding-right:16px}.card,.panel{padding:14px}.quick-buy{grid-template-columns:1fr}}
-  </style>
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
 <main class="page">
@@ -94,8 +38,19 @@
     <article class="card wide"><span>Why the board chose this</span><ul id="checks" class="checks"></ul></article>
   </section>
 
-  <div class="section-title"><div><p class="eyebrow">Personal tracker</p><h3>My DOGE purchases</h3></div><p>Saved on this phone</p></div>
+  <div class="section-title"><div><p class="eyebrow">Secure backup</p><h3>Supabase cloud</h3></div><p>Private sync code</p></div>
+  <section class="panel">
+    <div class="cloud-head"><strong>Purchase backup</strong><span id="cloudStatus" class="cloud-status"><i></i> Connecting</span></div>
+    <p class="notice">Your sync code is the key to this private purchase history. Use the same code on another device to restore it. Keep it private.</p>
+    <div class="auth-form">
+      <label>Cloud sync code<input id="syncCode" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" /></label>
+      <div class="auth-actions"><button id="connectSync" class="primary" type="button">Connect and sync</button><button id="generateSync" class="secondary" type="button">New code</button></div>
+      <div class="auth-actions"><button id="copySync" class="secondary" type="button">Copy code</button><button id="disconnectSync" class="text-button" type="button">Disconnect</button></div>
+    </div>
+    <p id="syncMessage" class="notice">Preparing secure cloud backup…</p>
+  </section>
 
+  <div class="section-title"><div><p class="eyebrow">Personal tracker</p><h3>My DOGE purchases</h3></div><p id="storageLabel">Waiting for cloud</p></div>
   <section class="panel">
     <div class="portfolio">
       <div class="stat"><span>Total invested</span><strong id="totalInvested">$0.00</strong></div>
@@ -104,12 +59,11 @@
       <div class="stat"><span>Current value</span><strong id="currentValue">—</strong></div>
       <div class="stat wide"><span>Estimated gain or loss</span><strong id="gainLoss">—</strong></div>
     </div>
-
     <div class="quick-buy">
       <button id="logFive" class="buy-button" disabled>Log this $5 purchase</button>
       <button id="toggleCustom" class="custom-button">Log another amount</button>
     </div>
-    <p id="purchaseNotice" class="notice">When live data is ready, tap “Log this $5 purchase.” It will record $5 using the current displayed DOGE price.</p>
+    <p id="purchaseNotice" class="notice">When live data is ready, tap “Log this $5 purchase.”</p>
     <form id="customForm" class="custom-form hidden">
       <input id="customAmount" inputmode="decimal" type="number" min="0.01" step="0.01" placeholder="Dollar amount" aria-label="Purchase amount in dollars" />
       <button type="submit">Save</button>
@@ -121,59 +75,9 @@
 
   <footer>
     <p id="updated">Waiting for a verified update.</p>
-    <p>The signal is a fixed discipline tool, not a guarantee. Purchases are stored only in this browser and the board never places trades.</p>
+    <p>The signal is a fixed discipline tool, not a guarantee. Purchase records are backed up in Supabase under your private sync code. The board never places trades.</p>
   </footer>
 </main>
-
-<script>
-const API='https://cmryhxnhnltrewvduico.supabase.co/functions/v1/doge-signal-api?key=0ZYgJdN_l2FdIeggiPq_uM49';
-const STORAGE_KEY='ace-doge-purchases-v1';
-const e=id=>document.getElementById(id);
-const x={card:e('card'),signal:e('signal'),price:e('price'),change:e('change'),reason:e('reason'),refresh:e('refresh'),details:e('details'),score:e('score'),rsi:e('rsi'),sma20:e('sma20'),sma50:e('sma50'),range:e('range'),checks:e('checks'),updated:e('updated'),totalInvested:e('totalInvested'),totalDoge:e('totalDoge'),averagePrice:e('averagePrice'),currentValue:e('currentValue'),gainLoss:e('gainLoss'),logFive:e('logFive'),toggleCustom:e('toggleCustom'),customForm:e('customForm'),customAmount:e('customAmount'),purchaseNotice:e('purchaseNotice'),history:e('history'),purchaseCount:e('purchaseCount')};
-let liveData=null;
-let purchases=readPurchases();
-
-function money(v){v=Number(v);return Number.isFinite(v)?v<1?'$'+v.toFixed(5):'$'+v.toFixed(2):'—'}
-function dollars(v){v=Number(v);return Number.isFinite(v)?new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(v):'—'}
-function pct(v){v=Number(v);return Number.isFinite(v)?(v>=0?'+':'')+v.toFixed(2)+'%':'—'}
-function readPurchases(){try{const value=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');return Array.isArray(value)?value.filter(p=>Number(p.amount)>0&&Number(p.price)>0):[]}catch{return []}}
-function savePurchases(){localStorage.setItem(STORAGE_KEY,JSON.stringify(purchases))}
-function formatWhen(value){return new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'}).format(new Date(value))}
-
-function safe(message){
-  liveData=null;x.card.className='signal wait';x.signal.textContent='WAIT';x.price.textContent='—';x.change.textContent='Live data unavailable';x.change.className='change negative';x.reason.textContent=message||'The live market feed could not be checked safely.';x.details.classList.add('hidden');x.updated.textContent='No purchase signal is shown without verified live data.';x.logFive.disabled=true;x.purchaseNotice.textContent='Live price is unavailable, so purchase logging is paused to avoid recording the wrong price.';renderPortfolio();
-}
-
-function renderSignal(d){
-  liveData=d;const buy=d.signal==='BUY SMALL';x.card.className='signal '+(buy?'buy':'wait');x.signal.textContent=d.signal||'WAIT';x.price.textContent=money(d.price);x.change.textContent=pct(d.change24h)+' today';x.change.className='change '+(Number(d.change24h)>=0?'positive':'negative');x.reason.textContent=d.reason||'The board recommends waiting.';x.score.textContent=d.score+' / 4';x.rsi.textContent=Number(d.rsi14).toFixed(1);x.sma20.textContent=money(d.sma20);x.sma50.textContent=money(d.sma50);x.range.textContent=money(d.sevenDayLow)+' – '+money(d.sevenDayHigh);x.checks.replaceChildren(...(d.checks||[]).map(c=>{const li=document.createElement('li'),b=document.createElement('b');li.className=c.passed?'passed':'notpassed';b.textContent=c.passed?'✓':'○';li.append(b,document.createTextNode(c.label));return li}));x.details.classList.remove('hidden');x.updated.textContent='Updated '+new Date(d.updatedAt).toLocaleString('en-US',{timeZone:'America/Los_Angeles',dateStyle:'medium',timeStyle:'short'})+' Pacific.';x.logFive.disabled=false;x.purchaseNotice.textContent='You said you bought $5. Tap “Log this $5 purchase” to save it at the current displayed price of '+money(d.price)+'.';renderPortfolio();
-}
-
-async function load(){
-  x.refresh.disabled=true;x.refresh.textContent='Checking…';
-  try{const r=await fetch(API+'&t='+Date.now(),{cache:'no-store'}),d=await r.json();if(!r.ok||d.error)throw new Error(d.error||'The signal service is unavailable.');renderSignal(d)}catch(err){safe(err.message)}finally{x.refresh.disabled=false;x.refresh.textContent='Check again'}
-}
-
-function addPurchase(amount){
-  amount=Number(amount);const price=Number(liveData&&liveData.price);if(!Number.isFinite(amount)||amount<=0)return alert('Enter a valid dollar amount.');if(!Number.isFinite(price)||price<=0)return alert('Wait for a verified live DOGE price first.');
-  purchases.unshift({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),amount:Number(amount.toFixed(2)),price,doge:amount/price,createdAt:new Date().toISOString()});savePurchases();renderPortfolio();x.purchaseNotice.textContent=dollars(amount)+' purchase logged at '+money(price)+'. Nice and measured, Ace.';
-}
-
-function deletePurchase(id){
-  const item=purchases.find(p=>p.id===id);if(!item)return;if(!confirm('Remove this '+dollars(item.amount)+' purchase from the tracker?'))return;purchases=purchases.filter(p=>p.id!==id);savePurchases();renderPortfolio();
-}
-
-function renderPortfolio(){
-  const invested=purchases.reduce((sum,p)=>sum+Number(p.amount||0),0);const doge=purchases.reduce((sum,p)=>sum+Number(p.doge||0),0);const average=doge>0?invested/doge:NaN;const currentPrice=Number(liveData&&liveData.price);const value=Number.isFinite(currentPrice)?doge*currentPrice:NaN;const gain=Number.isFinite(value)?value-invested:NaN;
-  x.totalInvested.textContent=dollars(invested);x.totalDoge.textContent=doge.toLocaleString('en-US',{maximumFractionDigits:2})+' Ð';x.averagePrice.textContent=Number.isFinite(average)?money(average):'—';x.currentValue.textContent=Number.isFinite(value)?dollars(value):'—';x.gainLoss.textContent=Number.isFinite(gain)?(gain>=0?'+':'')+dollars(gain).replace('$','')+' ('+(invested>0?pct(gain/invested*100):'+0.00%')+')':'—';x.gainLoss.className=Number.isFinite(gain)?(gain>=0?'gain':'loss'):'';x.purchaseCount.textContent=purchases.length+' purchase'+(purchases.length===1?'':'s');
-  if(!purchases.length){x.history.innerHTML='<div class="empty">No purchases have been logged yet.</div>';return}
-  x.history.replaceChildren(...purchases.map(p=>{const row=document.createElement('article');row.className='purchase';const left=document.createElement('div');const title=document.createElement('h4');title.textContent=dollars(p.amount)+' buy';const meta=document.createElement('p');meta.textContent=formatWhen(p.createdAt)+' · '+money(p.price)+' per DOGE';left.append(title,meta);const side=document.createElement('div');side.className='purchase-side';const quantity=document.createElement('strong');quantity.textContent=Number(p.doge).toLocaleString('en-US',{maximumFractionDigits:2})+' Ð';const remove=document.createElement('button');remove.className='delete';remove.type='button';remove.textContent='Remove';remove.addEventListener('click',()=>deletePurchase(p.id));side.append(quantity,remove);row.append(left,side);return row}));
-}
-
-x.refresh.addEventListener('click',load);
-x.logFive.addEventListener('click',()=>addPurchase(5));
-x.toggleCustom.addEventListener('click',()=>{x.customForm.classList.toggle('hidden');if(!x.customForm.classList.contains('hidden'))x.customAmount.focus()});
-x.customForm.addEventListener('submit',event=>{event.preventDefault();addPurchase(x.customAmount.value);x.customAmount.value='';x.customForm.classList.add('hidden')});
-renderPortfolio();load();
-</script>
+<script type="module" src="./app.js"></script>
 </body>
 </html>
