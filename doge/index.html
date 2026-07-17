@@ -7,9 +7,9 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="DOGE Board" />
-  <meta name="description" content="ACE OS DOGE Buy Board with secure Supabase purchase backup" />
+  <meta name="description" content="ACE OS DOGE Buy Board with Supabase account storage" />
   <title>DOGE Buy Board</title>
-  <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="./styles.css?v=3" />
 </head>
 <body>
 <main class="page">
@@ -38,19 +38,26 @@
     <article class="card wide"><span>Why the board chose this</span><ul id="checks" class="checks"></ul></article>
   </section>
 
-  <div class="section-title"><div><p class="eyebrow">Secure backup</p><h3>Supabase cloud</h3></div><p>Private sync code</p></div>
+  <div class="section-title"><div><p class="eyebrow">Private account</p><h3>Supabase storage</h3></div><p id="cloudLabel">Checking account</p></div>
   <section class="panel">
-    <div class="cloud-head"><strong>Purchase backup</strong><span id="cloudStatus" class="cloud-status"><i></i> Connecting</span></div>
-    <p class="notice">Your sync code is the key to this private purchase history. Use the same code on another device to restore it. Keep it private.</p>
-    <div class="auth-form">
-      <label>Cloud sync code<input id="syncCode" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" /></label>
-      <div class="auth-actions"><button id="connectSync" class="primary" type="button">Connect and sync</button><button id="generateSync" class="secondary" type="button">New code</button></div>
-      <div class="auth-actions"><button id="copySync" class="secondary" type="button">Copy code</button><button id="disconnectSync" class="text-button" type="button">Disconnect</button></div>
+    <div class="cloud-head"><strong>Purchase history</strong><span id="cloudStatus" class="cloud-status"><i></i> Connecting</span></div>
+
+    <form id="authForm" class="auth-form hidden">
+      <p class="notice">Sign in once with your ACE OS account. After that, every purchase loads from and saves directly to Supabase.</p>
+      <label>Email<input id="email" type="email" autocomplete="email" value="aceperkinsss@gmail.com" required /></label>
+      <label>Password<input id="password" type="password" autocomplete="current-password" placeholder="Your ACE OS password" required /></label>
+      <button id="signIn" class="primary" type="submit">Sign in</button>
+      <button id="magicLink" class="secondary" type="button">Email me a sign-in link</button>
+      <p id="authMessage" class="notice">Your password stays with Supabase and is never stored in this page.</p>
+    </form>
+
+    <div id="signedIn" class="signed-in hidden">
+      <div><span class="account-label">Signed in as</span><strong id="accountEmail">—</strong><p id="accountMessage">All purchase records come from Supabase.</p></div>
+      <button id="signOut" class="text-button" type="button">Sign out</button>
     </div>
-    <p id="syncMessage" class="notice">Preparing secure cloud backup…</p>
   </section>
 
-  <div class="section-title"><div><p class="eyebrow">Personal tracker</p><h3>My DOGE purchases</h3></div><p id="storageLabel">Waiting for cloud</p></div>
+  <div class="section-title"><div><p class="eyebrow">Personal tracker</p><h3>My DOGE purchases</h3></div><p id="storageLabel">Supabase only</p></div>
   <section class="panel">
     <div class="portfolio">
       <div class="stat"><span>Total invested</span><strong id="totalInvested">$0.00</strong></div>
@@ -61,9 +68,9 @@
     </div>
     <div class="quick-buy">
       <button id="logFive" class="buy-button" disabled>Log this $5 purchase</button>
-      <button id="toggleCustom" class="custom-button">Log another amount</button>
+      <button id="toggleCustom" class="custom-button" disabled>Log another amount</button>
     </div>
-    <p id="purchaseNotice" class="notice">When live data is ready, tap “Log this $5 purchase.”</p>
+    <p id="purchaseNotice" class="notice">Sign in and wait for a verified live DOGE price.</p>
     <form id="customForm" class="custom-form hidden">
       <input id="customAmount" inputmode="decimal" type="number" min="0.01" step="0.01" placeholder="Dollar amount" aria-label="Purchase amount in dollars" />
       <button type="submit">Save</button>
@@ -71,13 +78,13 @@
   </section>
 
   <div class="section-title"><div><p class="eyebrow">History</p><h3>Purchase log</h3></div><p id="purchaseCount">0 purchases</p></div>
-  <section id="history" class="history"><div class="empty">No purchases have been logged yet.</div></section>
+  <section id="history" class="history"><div class="empty">Sign in to load your Supabase purchase history.</div></section>
 
   <footer>
     <p id="updated">Waiting for a verified update.</p>
-    <p>The signal is a fixed discipline tool, not a guarantee. Purchase records are backed up in Supabase under your private sync code. The board never places trades.</p>
+    <p>The signal is a fixed discipline tool, not a guarantee. Purchase records are stored in Supabase under your private account. The board never places trades.</p>
   </footer>
 </main>
-<script type="module" src="./app.js"></script>
+<script type="module" src="./app.js?v=3"></script>
 </body>
 </html>
