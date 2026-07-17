@@ -2,89 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="theme-color" content="#101713" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="DOGE Board" />
-  <meta name="description" content="ACE OS DOGE Buy Board with Supabase account storage" />
-  <title>DOGE Buy Board</title>
-  <link rel="stylesheet" href="./styles.css?v=3" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta http-equiv="refresh" content="0; url=https://aces-reflection-library.vercel.app/doge.html" />
+  <link rel="canonical" href="https://aces-reflection-library.vercel.app/doge.html" />
+  <title>Opening DOGE Buy Board</title>
+  <script>location.replace('https://aces-reflection-library.vercel.app/doge.html');</script>
 </head>
-<body>
-<main class="page">
-  <header>
-    <div><p class="eyebrow">ACE OS · Money Module</p><h2>DOGE Buy Board</h2></div>
-    <div class="coin">Ð</div>
-  </header>
-
-  <section id="card" class="signal loading" aria-live="polite">
-    <span class="badge"><i></i> Live rule-based check</span>
-    <p class="prompt">Today’s signal</p>
-    <h1 id="signal">CHECKING</h1>
-    <p id="price" class="price">—</p>
-    <p id="change" class="change">Getting live DOGE data…</p>
-    <p id="reason" class="reason">The board is checking the current market before showing a signal.</p>
-  </section>
-
-  <button id="refresh" class="refresh">Check again</button>
-
-  <section id="details" class="grid hidden">
-    <article class="card"><span>Dip score</span><strong id="score">—</strong></article>
-    <article class="card"><span>RSI momentum</span><strong id="rsi">—</strong></article>
-    <article class="card"><span>20-day average</span><strong id="sma20">—</strong></article>
-    <article class="card"><span>50-day average</span><strong id="sma50">—</strong></article>
-    <article class="card wide"><span>7-day range</span><strong id="range">—</strong></article>
-    <article class="card wide"><span>Why the board chose this</span><ul id="checks" class="checks"></ul></article>
-  </section>
-
-  <div class="section-title"><div><p class="eyebrow">Private account</p><h3>Supabase storage</h3></div><p id="cloudLabel">Checking account</p></div>
-  <section class="panel">
-    <div class="cloud-head"><strong>Purchase history</strong><span id="cloudStatus" class="cloud-status"><i></i> Connecting</span></div>
-
-    <form id="authForm" class="auth-form hidden">
-      <p class="notice">Sign in once with your ACE OS account. After that, every purchase loads from and saves directly to Supabase.</p>
-      <label>Email<input id="email" type="email" autocomplete="email" value="aceperkinsss@gmail.com" required /></label>
-      <label>Password<input id="password" type="password" autocomplete="current-password" placeholder="Your ACE OS password" required /></label>
-      <button id="signIn" class="primary" type="submit">Sign in</button>
-      <button id="magicLink" class="secondary" type="button">Email me a sign-in link</button>
-      <p id="authMessage" class="notice">Your password stays with Supabase and is never stored in this page.</p>
-    </form>
-
-    <div id="signedIn" class="signed-in hidden">
-      <div><span class="account-label">Signed in as</span><strong id="accountEmail">—</strong><p id="accountMessage">All purchase records come from Supabase.</p></div>
-      <button id="signOut" class="text-button" type="button">Sign out</button>
-    </div>
-  </section>
-
-  <div class="section-title"><div><p class="eyebrow">Personal tracker</p><h3>My DOGE purchases</h3></div><p id="storageLabel">Supabase only</p></div>
-  <section class="panel">
-    <div class="portfolio">
-      <div class="stat"><span>Total invested</span><strong id="totalInvested">$0.00</strong></div>
-      <div class="stat"><span>Estimated DOGE</span><strong id="totalDoge">0.00 Ð</strong></div>
-      <div class="stat"><span>Average buy price</span><strong id="averagePrice">—</strong></div>
-      <div class="stat"><span>Current value</span><strong id="currentValue">—</strong></div>
-      <div class="stat wide"><span>Estimated gain or loss</span><strong id="gainLoss">—</strong></div>
-    </div>
-    <div class="quick-buy">
-      <button id="logFive" class="buy-button" disabled>Log this $5 purchase</button>
-      <button id="toggleCustom" class="custom-button" disabled>Log another amount</button>
-    </div>
-    <p id="purchaseNotice" class="notice">Sign in and wait for a verified live DOGE price.</p>
-    <form id="customForm" class="custom-form hidden">
-      <input id="customAmount" inputmode="decimal" type="number" min="0.01" step="0.01" placeholder="Dollar amount" aria-label="Purchase amount in dollars" />
-      <button type="submit">Save</button>
-    </form>
-  </section>
-
-  <div class="section-title"><div><p class="eyebrow">History</p><h3>Purchase log</h3></div><p id="purchaseCount">0 purchases</p></div>
-  <section id="history" class="history"><div class="empty">Sign in to load your Supabase purchase history.</div></section>
-
-  <footer>
-    <p id="updated">Waiting for a verified update.</p>
-    <p>The signal is a fixed discipline tool, not a guarantee. Purchase records are stored in Supabase under your private account. The board never places trades.</p>
-  </footer>
-</main>
-<script type="module" src="./app.js?v=3"></script>
+<body style="margin:0;min-height:100vh;display:grid;place-items:center;background:#101713;color:#f5f0e7;font-family:system-ui;padding:24px;text-align:center">
+  <main>
+    <h1>Opening the DOGE Buy Board…</h1>
+    <p><a style="color:#e5c985" href="https://aces-reflection-library.vercel.app/doge.html">Tap here if it does not open automatically.</a></p>
+  </main>
 </body>
 </html>
